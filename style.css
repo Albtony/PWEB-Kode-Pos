@@ -13,10 +13,6 @@ body {
     align-items: center;
 }
 
-.main-form {
-  position: sticky;
-}
-
 .column {
     display: flex;
     flex-direction: column;
