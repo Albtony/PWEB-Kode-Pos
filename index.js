@@ -1,26 +1,38 @@
 import { post_code } from './postal_array.js'
 
 window.test = () => {
-    document.getElementById("result").innerHTML = ""
     let postalCode = document.getElementById("postal-code").value;
     if (postalCode == "" || postalCode == null) return;
-    
     const postalResult = post_code.filter((item) => {
         return item["postal_code"] == postalCode;
     });
 
+    document.getElementById("result").innerHTML = ""
+    console.log(postalResult);
+
     if (postalResult.length == 0) {
-        alert("No result was found");
-        return;
+        let p = document.createElement('p');
+        let text = "No result was found";
+        p.appendChild(document.createTextNode(text));
+        document.getElementById('result').appendChild(p)
+    } else {
+        let ul = document.createElement('ul');
+        for (const elem of postalResult) {
+            let item = document.createElement('li');
+            let text = elem["city"] + ", " + elem["sub_district"]  + ", ";
+            text = toTitleCase(text);
+            item.appendChild(document.createTextNode(text));
+            ul.appendChild(item);
+        }
+        document.getElementById('result').appendChild(ul)
     }
+}
 
-    var list = document.createElement('ul');
-    for (const elem of postalResult) {
-        let item = document.createElement('li');
-        let text = elem["postal_code"] + " - " + elem["city"] + ", " + elem["sub_district"]  + ", "
-        item.appendChild(document.createTextNode(text));
-        list.appendChild(item);
-    }
-
-    document.getElementById('result').appendChild(list)
+window.toTitleCase = (str) => {
+    return str.replace(
+        /\w\S*/g,
+        function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
 }
