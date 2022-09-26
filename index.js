@@ -1,7 +1,8 @@
 import { post_code } from './postal_array.js'
 
 window.test = () => {
-    var postalCode = document.getElementById("postal-code").value;
+    document.getElementById("result").innerHTML = ""
+    let postalCode = document.getElementById("postal-code").value;
     if (postalCode == "" || postalCode == null) return;
     
     const postalResult = post_code.filter((item) => {
@@ -20,5 +21,6 @@ window.test = () => {
         item.appendChild(document.createTextNode(text));
         list.appendChild(item);
     }
+
     document.getElementById('result').appendChild(list)
 }
